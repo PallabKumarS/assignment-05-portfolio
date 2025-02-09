@@ -28,13 +28,13 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-5 py-2"
+      className="sticky top-0 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-5 py-2"
     >
-      <div className="flex h-14 items-center justify-between">
+      <div className="flex h-14 items-center justify-between container mx-auto">
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`lg:mx-auto ${dashboard ? "invisible" : "visible"}`}
+          className={`${dashboard ? "invisible" : "visible"}`}
         >
           <Link href="/" className="font-bold text-xl">
             Portfolio
@@ -68,11 +68,18 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
               </Link>
             </motion.div>
           ))}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="outline" size="sm">
+        </div>
+
+        <div className="hidden md:flex items-center gap-2 justify-end">
+          {/* login button  */}
+
+          <Link href={"/login"}>
+            <Button effect={"gooeyRight"} size="sm">
               Login
             </Button>
-          </motion.div>
+          </Link>
+
+          {/* Theme Button */}
           <ThemeButton />
         </div>
 
@@ -117,15 +124,12 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="mx-auto"
-                >
-                  <Button variant="outline" size="sm">
+
+                <Link href={"/login"} className="mx-auto">
+                  <Button effect={"gooeyRight"} size="sm">
                     Login
                   </Button>
-                </motion.div>
+                </Link>
               </motion.div>
             </SheetContent>
           </Sheet>

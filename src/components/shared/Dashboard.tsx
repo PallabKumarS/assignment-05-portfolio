@@ -6,7 +6,7 @@ import { MdEmail, MdDashboard, MdMenu, MdClose } from "react-icons/md";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/moving-border";
 
 const Sidebar = () => {
   const pathname = usePathname();
