@@ -1,40 +1,46 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { BsSun, BsMoonStars } from "react-icons/bs";
 
-export default function ThemeToggle() {
-  const { setTheme } = useTheme();
+export default function ThemeButton() {
+  const { theme, setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      variant="outline"
+      size="icon"
+      className="relative overflow-hidden rounded-lg"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    >
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{
+          y: theme === "dark" ? -30 : 0,
+          opacity: theme === "dark" ? 0 : 1,
+        }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="absolute"
+      >
+        <BsSun className="h-[1.2rem] w-[1.2rem] text-orange-500" />
+      </motion.div>
+
+      <motion.div
+        initial={{ y: 30 }}
+        animate={{
+          y: theme === "dark" ? 0 : 30,
+          opacity: theme === "dark" ? 1 : 0,
+        }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="absolute"
+      >
+        <BsMoonStars className="h-[1.2rem] w-[1.2rem] text-slate-300" />
+      </motion.div>
+
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 }
