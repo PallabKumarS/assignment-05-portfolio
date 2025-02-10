@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 let isConnected = false;
@@ -10,7 +9,6 @@ async function dbConnect() {
     });
     isConnected = true;
   }
-  return NextResponse.json({ connected: true });
 }
 
 export default dbConnect;
