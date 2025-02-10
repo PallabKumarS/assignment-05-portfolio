@@ -9,7 +9,7 @@ export async function GET() {
     await dbConnect();
     const projects = await ProjectModel.find();
     return NextResponse.json({
-      projects,
+      data: projects,
       message: "projects fetched successfully",
       status: 200,
     });
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     const data = await request.json();
     const project = await ProjectModel.create(data);
     return NextResponse.json({
-      project,
+      data: project,
       message: "project created successfully",
       status: 201,
     });
