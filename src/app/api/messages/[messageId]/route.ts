@@ -2,16 +2,14 @@
 
 import dbConnect from "@/lib/dbConnect";
 import { MessageModel } from "@/schemas/message.schema";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // DELETE a message by ID
-export async function DELETE(
-  req: Request,
-  { params }: { params: { messageId: string } }
-) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function DELETE(req: NextRequest, context: any) {
   try {
     await dbConnect();
-    const { messageId } = await params;
+    const { messageId } = await context.params;
 
     await MessageModel.findByIdAndDelete(messageId);
     return NextResponse.json({
