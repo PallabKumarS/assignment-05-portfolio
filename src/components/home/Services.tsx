@@ -1,11 +1,11 @@
 "use client";
 
-import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import Image from "next/image";
 import frontEnd from "../../../public/front-end.png";
 import backEnd from "../../../public/back-end.png";
 import fullStack from "../../../public/full-stack.png";
 import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader } from "../ui/card";
 
 const Services = () => {
   return (
@@ -22,8 +22,8 @@ const Services = () => {
             <Image alt="logo fe" src={frontEnd} width={40}></Image>
             <p className="text-xl text-gray-300">Front End Development</p>
           </CardHeader>
-          <Divider />
-          <CardBody>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
+          <CardContent>
             <p className="text-gray-300">
               As a seasoned MERN stack developer, my front-end development
               services are meticulously crafted to elevate web experiences. With
@@ -31,8 +31,8 @@ const Services = () => {
               and intuitive user interfaces, ensuring a seamless journey for
               users across various devices.
             </p>
-          </CardBody>
-          <Divider />
+          </CardContent>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
         </Card>
       </motion.div>
 
@@ -48,8 +48,8 @@ const Services = () => {
             <Image alt="logo fe" src={backEnd} width={40}></Image>
             <p className="text-xl text-gray-300">Back End Development</p>
           </CardHeader>
-          <Divider />
-          <CardBody>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
+          <CardContent>
             <p className="text-gray-300">
               As an adept MERN stack developer, my back-end development services
               are tailored for robust and efficient web solutions. Proficient in
@@ -59,8 +59,8 @@ const Services = () => {
               database design and management, I ensure optimal data integrity
               and integration with the front-end.
             </p>
-          </CardBody>
-          <Divider />
+          </CardContent>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
         </Card>
       </motion.div>
 
@@ -76,16 +76,16 @@ const Services = () => {
             <Image alt="logo fe" src={fullStack} width={40}></Image>
             <p className="text-xl text-gray-300">Full Stack Development</p>
           </CardHeader>
-          <Divider />
-          <CardBody>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
+          <CardContent>
             <p className="text-gray-300">
               As a seasoned full-stack web developer proficient in the MERN
               stack, I offer end-to-end solutions that seamlessly integrate
               front-end and back-end technologies, ensuring comprehensive and
               dynamic web experiences.
             </p>
-          </CardBody>
-          <Divider />
+          </CardContent>
+          <div className="border-t border-gray-300 dark:border-gray-700 my-4" />
         </Card>
       </motion.div>
     </div>

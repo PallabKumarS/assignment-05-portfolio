@@ -1,8 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import TQ1 from "../../../public/TQ1.png";
 import TQ2 from "../../../public/TQ2.png";
 import TQ3 from "../../../public/TQ3.png";
@@ -13,6 +11,7 @@ import SS1 from "../../../public/SS1.png";
 import SS2 from "../../../public/SS2.png";
 import SS3 from "../../../public/SS3.png";
 import CustomSlider from "../CustomSlider";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
 const Projects = () => {
   const projects = [
@@ -96,7 +95,7 @@ const Projects = () => {
                     {project.name}
                   </h4>
                 </CardHeader>
-                <CardBody className="overflow-visible py-2">
+                <CardContent className="overflow-visible py-2">
                   <div className="my-3">
                     <CustomSlider images={project.images}></CustomSlider>
                   </div>
@@ -115,7 +114,7 @@ const Projects = () => {
                       </p>
                     ))}
                   </div>
-                </CardBody>
+                </CardContent>
                 <CardFooter>
                   <div className="flex flex-wrap gap-5">
                     <a
