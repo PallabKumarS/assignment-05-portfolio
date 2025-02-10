@@ -10,7 +10,7 @@ import HE3 from "../../../public/HE3.png";
 import SS1 from "../../../public/SS1.png";
 import SS2 from "../../../public/SS2.png";
 import SS3 from "../../../public/SS3.png";
-import CustomSlider from "../CustomSlider";
+// import CustomSlider from "../CustomSlider";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
 const Projects = () => {
@@ -97,7 +97,7 @@ const Projects = () => {
                 </CardHeader>
                 <CardContent className="overflow-visible py-2">
                   <div className="my-3">
-                    <CustomSlider images={project.images}></CustomSlider>
+                    {/* <CustomSlider images={project.images}></CustomSlider> */}
                   </div>
                   <p className="text-md font-medium text-gray-300">
                     {project.info}

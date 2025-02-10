@@ -13,11 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import ShimmerButton from "./shared/ShimmerButton";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
+import { baseUrl } from "@/utils/authOptions";
+import ShimmerButton from "../shared/ShimmerButton";
 
 const formSchema = z.object({
   email: z.string(),
@@ -106,7 +107,7 @@ export default function LoginForm() {
               alt="Google logo"
               onClick={() =>
                 signIn("google", {
-                  callbackUrl: `http://localhost:3000/dashboard`,
+                  callbackUrl: `${baseUrl}/dashboard`,
                 })
               }
             />
@@ -121,7 +122,7 @@ export default function LoginForm() {
             )}
             onClick={() =>
               signIn("github", {
-                callbackUrl: `http://localhost:3000/dashboard`,
+                callbackUrl: `${baseUrl}/dashboard`,
               })
             }
           >

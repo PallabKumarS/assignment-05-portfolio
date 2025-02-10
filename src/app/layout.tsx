@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ThemeProvider from "@/provider/ThemeProvider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "PKS Portfolio",
@@ -22,6 +23,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

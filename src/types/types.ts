@@ -21,17 +21,15 @@ export type TUser = {
   password: string;
 };
 
-export type TRUser = {
-  email: string;
-  name: string;
-  __v: number;
-  _id: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
 export type TMessage = {
   message: string;
   email: string;
   name: string;
+};
+
+export type TMongoose = {
+  _id: string;
+  __v: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
