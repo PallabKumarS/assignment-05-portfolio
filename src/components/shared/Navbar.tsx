@@ -13,8 +13,17 @@ import {
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
 import ThemeButton from "./ThemeButton";
+import Logo from "./Logo";
+import { signOut } from "next-auth/react";
 
-const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
+type TNavProps = {
+  dashboard?: boolean;
+  user?:
+    | { name?: string | null; email?: string | null; image?: string | null }
+    | undefined;
+};
+
+const Navbar = ({ dashboard = false, user }: TNavProps) => {
   const pathname = usePathname();
   const routes = [
     { name: "Home", path: "/" },
@@ -28,18 +37,12 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className="sticky top-0 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-5 py-2"
+      className="sticky top-0 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-300 dark:from-neutral-950 dark:to-neutral-900 px-5 py-2"
     >
       <div className="flex h-14 items-center justify-between container mx-auto">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`${dashboard ? "invisible" : "visible"}`}
-        >
-          <Link href="/" className="font-bold text-xl">
-            Portfolio
-          </Link>
-        </motion.div>
+        <div className={dashboard ? "invisible lg:visible" : "visible"}>
+          <Logo />
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6 md:mx-auto">
@@ -68,16 +71,48 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
               </Link>
             </motion.div>
           ))}
+
+          {/* conditional render  */}
+          {user && (
+            <motion.div
+              key={"/dashboard"}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className=""
+            >
+              <Link
+                href={"/dashboard"}
+                className={`text-sm transition-colors hover:text-primary relative ${
+                  pathname === "/dashboard"
+                    ? "text-primary font-bold"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {"Dashboard"}
+                {pathname === "/dashboard" && (
+                  <motion.div
+                    layoutId="underline"
+                    className="absolute left-0 top-full h-[2px] w-full bg-primary"
+                  />
+                )}
+              </Link>
+            </motion.div>
+          )}
         </div>
 
+        {/* Buttons  */}
         <div className="hidden md:flex items-center gap-2 justify-end">
-          {/* login button  */}
-
-          <Link href={"/login"}>
-            <Button effect={"gooeyRight"} size="sm">
-              Login
+          {user ? (
+            <Button onClick={() => signOut()} effect={"gooeyRight"} size="sm">
+              Logout
             </Button>
-          </Link>
+          ) : (
+            <Link href={"/login"}>
+              <Button effect={"gooeyRight"} size="sm">
+                Login
+              </Button>
+            </Link>
+          )}
 
           {/* Theme Button */}
           <ThemeButton />
@@ -125,11 +160,49 @@ const Navbar = ({ dashboard = false }: { dashboard?: boolean }) => {
                   </motion.div>
                 ))}
 
-                <Link href={"/login"} className="mx-auto">
-                  <Button effect={"gooeyRight"} size="sm">
-                    Login
-                  </Button>
-                </Link>
+                {/* conditional render  */}
+                {user ? (
+                  <>
+                    <motion.div
+                      key={"/dashboard"}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mx-auto"
+                    >
+                      <Link
+                        href={"/dashboard"}
+                        className={`text-sm transition-colors hover:text-primary relative ${
+                          pathname === "/dashboard"
+                            ? "text-primary font-bold"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {"Dashboard"}
+                        {pathname === "/dashboard" && (
+                          <motion.div
+                            layoutId="underline"
+                            className="absolute left-0 top-full h-[2px] w-full bg-primary"
+                          />
+                        )}
+                      </Link>
+                    </motion.div>
+
+                    <Button
+                      onClick={() => signOut()}
+                      effect={"gooeyRight"}
+                      size="sm"
+                      className="mx-auto"
+                    >
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <Link href={"/login"} className="mx-auto">
+                    <Button effect={"gooeyRight"} size="sm">
+                      Login
+                    </Button>
+                  </Link>
+                )}
               </motion.div>
             </SheetContent>
           </Sheet>
