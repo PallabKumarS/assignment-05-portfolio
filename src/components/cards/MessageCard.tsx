@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FiTrash2 } from "react-icons/fi";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
