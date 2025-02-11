@@ -19,5 +19,5 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-// export const baseUrl = "https://assignment-05-portfolio.vercel.app";
-export const baseUrl = "http://localhost:3000";
+export const baseUrl = "https://assignment-05-portfolio.vercel.app";
+// export const baseUrl = "http://localhost:3000";

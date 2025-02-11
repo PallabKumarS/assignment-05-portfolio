@@ -3,13 +3,14 @@
 import ProjectCard from "@/components/cards/ProjectCard";
 import { NoData } from "@/components/shared/NoData";
 import { TMongoose, TProject } from "@/types/types";
+import { baseUrl } from "@/utils/authOptions";
 import { useEffect, useState } from "react";
 
 const ProjectPage = () => {
   const [data, setData] = useState<(TProject & TMongoose)[]>([]);
 
   useEffect(() => {
-    fetch(`/api/projects`)
+    fetch(`${baseUrl}/api/projects`)
       .then((res) => res.json())
       .then((data) => setData(data.data));
   }, []);
