@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern Portfolio with Blog & Message Management
 
-## Getting Started
+A feature-rich portfolio application built with Next.js 14, TypeScript, and
+MongoDB.
 
-First, run the development server:
+## ✨ Features
 
-```bash
+- 🎨 Modern UI with Tailwind CSS
+- 🌙 Dark/Light mode
+- 🎭 Admin Dashboard
+- 📝 Blog Management
+- 💌 Message System
+- 🖼️ Project Showcase
+- 🔐 Authentication
+- 📱 Fully Responsive
+- 🎉 3D Card Effects
+
+## 🚀 Tech Stack
+
+- Next.js 15 (App Router)
+- TypeScript
+- MongoDB & Mongoose
+- Tailwind CSS
+- Shadcn UI
+- NextAuth.js
+- React Icons
+- React Hook Form
+- Zod Validation
+
+## 📁 Project Structure
+
+    src/ ├── app/ │ ├── (dashboardLayout)/ │ │ └── dashboard/ │ │ ├── blog-management/ │ │ ├── message-management/ │ │ └── project-management/ │ ├── api/ │ │ ├── auth/ │ │ ├── blogs/ │ │ ├── messages/ │ │ └── projects/ │ ├── blogs/ │ └── projects/ ├── components/ ├── lib/ ├── schemas/ ├── types/ └── utils/
+
+## 🛣️ Routes
+
+- `/` - Home page
+- `/blogs` - All blogs
+- `/blogs/[id]` - Single blog
+- `/projects` - All projects
+- `/dashboard` - Admin dashboard
+- `/dashboard/blog-management` - Blog CRUD
+- `/dashboard/message-management` - Message management
+- `/dashboard/project-management` - Project CRUD
+
+## 🔧 Environment Variables
+
+```env
+# Database
+DATABASE_URL="your_mongodb_connection_string"
+
+# GitHub OAuth
+GITHUB_ID="your_github_client_id"
+GITHUB_SECRET="your_github_client_secret"
+
+# Google OAuth
+GOOGLE_ID="your_google_client_id"
+GOOGLE_SECRET="your_google_client_secret"
+
+# NextAuth
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="http://localhost:3000"
+
+
+
+git clone https://github.com/PallabKumarS/your-portfolio.git
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
