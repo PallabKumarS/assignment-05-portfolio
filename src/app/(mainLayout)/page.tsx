@@ -1,5 +1,11 @@
 import AboutMe from "@/components/home/AboutMe";
 import SkillSet from "@/components/home/SkillSet";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Portfolio | Home",
+  description: "Home page of my portfolio",
+};
 
 export default function HomePage() {
   return (

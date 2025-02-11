@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { FiGithub, FiGlobe } from "react-icons/fi";
+import { FiEye, FiGithub, FiGlobe } from "react-icons/fi";
 import Link from "next/link";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import { BackgroundGradient } from "../ui/gradient";
@@ -133,7 +133,7 @@ const ProjectCard = ({ data, edit = false }: ProjectCardProps) => {
             </div>
 
             {/* management button here  */}
-            {edit && (
+            {edit ? (
               <div className="mt-auto flex items-center gap-2">
                 <CardItem translateZ="40">
                   <Modal
@@ -143,32 +143,47 @@ const ProjectCard = ({ data, edit = false }: ProjectCardProps) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="text-xs sm:text-sm"
+                        className="text-xs sm:text-sm text-green-500"
                       >
                         <FiEdit className="w-3 h-3 md:w-4 md:h-4" />
                         Edit
                       </Button>
                     }
                     title="Edit Project"
-                    content={<ProjectForm setIsOpen={setIsOpen} data={data} />}
+                    content={
+                      <ProjectForm
+                        setIsOpen={setIsOpen}
+                        data={data}
+                        edit={true}
+                      />
+                    }
                   />
                 </CardItem>
                 <CardItem translateZ="40">
                   <ConfirmationBox
                     trigger={
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        className="text-xs sm:text-sm"
-                      >
-                        <FiTrash2 className="w-3 h-2  md:w-4 md:h-4" />
+                      <p className="text-xs sm:text-sm flex items-center gap-1 justify-center bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 px-3 rounded-md">
+                        <FiTrash2 className="w-3 h-3 md:w-4 md:h-4" />
                         Delete
-                      </Button>
+                      </p>
                     }
                     onConfirm={() => deleteProject(data._id)}
                   />
                 </CardItem>
               </div>
+            ) : (
+              <CardItem translateZ="40">
+                <Link href={`/projects/${data._id}`}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm text-primary"
+                  >
+                    <FiEye className="w-3 h-3 md:w-4 md:h-4 mr-1" />
+                    Details
+                  </Button>
+                </Link>
+              </CardItem>
             )}
           </CardBody>
         </Card>

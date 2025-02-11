@@ -2,6 +2,12 @@ import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Dashboard page contains all the information about the user",
+};
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOptions);

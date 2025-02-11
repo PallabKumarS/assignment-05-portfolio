@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { cn } from "@/lib/utils";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -17,43 +16,7 @@ export const CardContainer = ({
   className?: string;
   containerClassName?: string;
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!containerRef.current) return;
-    const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 25;
-    const y = (e.clientY - top - height / 2) / 25;
-    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-  };
-
-  const handleMouseEnter = (e: MouseEvent) => {
-    setIsMouseEntered(true);
-    if (!containerRef.current) return;
-  };
-
-  const handleMouseLeave = (e: MouseEvent) => {
-    if (!containerRef.current) return;
-    setIsMouseEntered(false);
-    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
-  };
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
 
   return (
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
@@ -61,14 +24,10 @@ export const CardContainer = ({
         className={cn("flex items-center justify-center", containerClassName)}
       >
         <div
-          ref={containerRef}
           className={cn(
             "flex items-center justify-center relative transition-all duration-200 ease-linear",
             className
           )}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
         >
           {children}
         </div>
@@ -84,28 +43,13 @@ export const CardBody = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return (
-    <div
-      className={cn(
-        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <div className={cn("h-96 w-96", className)}>{children}</div>;
 };
 
 export const CardItem = ({
   as: Tag = "div",
   children,
   className,
-  translateX = 0,
-  translateY = 0,
-  translateZ = 0,
-  rotateX = 0,
-  rotateY = 0,
-  rotateZ = 0,
   ...rest
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -119,17 +63,10 @@ export const CardItem = ({
   rotateY?: number | string;
   rotateZ?: number | string;
 }) => {
-  const [isMouseEntered] = useMouseEnter();
-
-  const transform = isMouseEntered
-    ? `translate3d(${translateX}px, ${translateY}px, ${translateZ}px)
-       rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`
-    : "translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0)";
 
   return (
     <Tag
       className={cn("transition duration-200 ease-linear", className)}
-      style={{ transform }}
       {...rest}
     >
       {children}

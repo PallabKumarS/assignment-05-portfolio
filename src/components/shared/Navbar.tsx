@@ -37,7 +37,7 @@ const Navbar = ({ dashboard = false, user }: TNavProps) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
-      className="sticky top-0 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-300 dark:from-neutral-950 dark:to-neutral-900 px-5 py-2"
+      className="sticky top-0 left-0 z-40 w-screen border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-300 dark:from-neutral-950 dark:to-neutral-900 px-5 py-2"
     >
       <div className="flex h-14 items-center justify-between container mx-auto">
         <div className={dashboard ? "invisible lg:visible" : "visible"}>

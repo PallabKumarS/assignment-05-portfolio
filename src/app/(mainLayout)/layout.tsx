@@ -13,8 +13,10 @@ export default async function RootLayout({
 
   return (
     <BackgroundBeamsWithCollision className="min-h-fit items-start">
-      <div>
-        <Navbar user={session?.user} />
+      <div className="">
+        <div className="">
+          <Navbar user={session?.user} />
+        </div>
         <div className="h-full">{children}</div>
         <Footer />
       </div>

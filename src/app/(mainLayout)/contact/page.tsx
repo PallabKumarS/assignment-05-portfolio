@@ -2,6 +2,12 @@ import ContactForm from "@/components/forms/ContactForm";
 import Profile from "@/components/Profile";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Portfolio | Contact",
+  description: "Contact Page from where you can contact me",
+};
 
 const ContactPage = () => {
   const words = "Let's Connect and Create Something Amazing Together!";

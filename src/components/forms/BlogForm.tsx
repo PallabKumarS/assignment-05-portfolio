@@ -1,9 +1,9 @@
 "use client";
+
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { baseUrl } from "@/utils/authOptions";
 import { TBlog, TMongoose } from "@/types/types";
+import ShimmerButton from "../shared/ShimmerButton";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -27,7 +28,15 @@ const formSchema = z.object({
   content: z.string().min(1, "Content is required"),
 });
 
-export default function BlogForm({ data }: { data?: TBlog & TMongoose }) {
+export default function BlogForm({
+  data,
+  edit = false,
+  setIsOpen,
+}: {
+  edit?: boolean;
+  data?: TBlog & TMongoose;
+  setIsOpen: (isOpen: boolean) => void;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,29 +48,70 @@ export default function BlogForm({ data }: { data?: TBlog & TMongoose }) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      fetch(`${baseUrl}/api/blogs`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
-        .then((response) => {
-          if (response.ok) {
-            toast.success("Blog created successfully!");
-            form.reset();
-          } else {
-            throw new Error("Failed to create blog");
-          }
+    const toastId = toast.loading(
+      edit ? "Updating blog..." : "Creating blog..."
+    );
+
+    if (edit) {
+      try {
+        fetch(`${baseUrl}/api/blogs/${data?._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
         })
-        .catch((error) => {
-          console.error("Form submission error", error);
-          toast.error("Failed to submit the form. Please try again.");
+          .then((response) => {
+            if (response.ok) {
+              toast.success("Blog updated successfully!", { id: toastId });
+              form.reset();
+              setIsOpen(false);
+            } else {
+              throw new Error("Failed to create blog");
+            }
+          })
+          .catch((error) => {
+            console.log("Form submission error", error);
+            toast.error("Failed to submit the form. Please try again.", {
+              id: toastId,
+            });
+          });
+      } catch (error) {
+        console.log("Form submission error", error);
+        toast.error("Failed to submit the form. Please try again.", {
+          id: toastId,
         });
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      }
+    } else {
+      try {
+        fetch(`${baseUrl}/api/blogs`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        })
+          .then((response) => {
+            if (response.ok) {
+              toast.success("Blog created successfully!", { id: toastId });
+              form.reset();
+              setIsOpen(false);
+            } else {
+              throw new Error("Failed to create blog");
+            }
+          })
+          .catch((error) => {
+            console.error("Form submission error", error);
+            toast.error("Failed to submit the form. Please try again.", {
+              id: toastId,
+            });
+          });
+      } catch (error) {
+        console.error("Form submission error", error);
+        toast.error("Failed to submit the form. Please try again.", {
+          id: toastId,
+        });
+      }
     }
   }
 
@@ -146,10 +196,10 @@ export default function BlogForm({ data }: { data?: TBlog & TMongoose }) {
             </FormItem>
           )}
         />
-        <div className="text-end">
-          <Button effect={"shine"} type="submit">
-            Submit
-          </Button>
+        <div className="text-start">
+          <ShimmerButton type="submit">
+            {edit ? "Update Blog" : "Create Blog"}
+          </ShimmerButton>
         </div>
       </form>
     </Form>

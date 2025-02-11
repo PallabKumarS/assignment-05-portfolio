@@ -8,6 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Portfolio | Login",
+  description: "Login to your account or register a new account",
+};
 
 const LoginPage = () => {
   return (

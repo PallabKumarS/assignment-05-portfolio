@@ -1,9 +1,15 @@
-"use client";
+import { Metadata } from "next";
+import AllMessages from "./AllMessages";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Message",
+  description: "Add, Edit, Delete, and View Messages",
+};
 
 const MessagePage = () => {
   return (
     <div>
-      <h1>This is MessagePage Component</h1>
+      <AllMessages />
     </div>
   );
 };

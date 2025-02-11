@@ -38,9 +38,11 @@ const formSchema = z.object({
 export default function ProjectForm({
   data,
   setIsOpen,
+  edit = false,
 }: {
   data?: TProject & TMongoose;
   setIsOpen: (isOpen: boolean) => void;
+  edit?: boolean;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,10 +57,12 @@ export default function ProjectForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const toastId = toast.loading("Creating project...");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const toastId = toast.loading(
+      edit ? "Updating project..." : "Creating project..."
+    );
 
-    const data = {
+    const newData = {
       title: values.title,
       images: values.images.split(",").map((url) => url.trim()),
       technology: values.technology.split(",").map((tech) => tech.trim()),
@@ -67,36 +71,63 @@ export default function ProjectForm({
       serverRepo: values.serverRepo,
       description: values.description,
     };
-    try {
-      fetch(`/api/projects`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => {
-          if (res.ok) {
-            toast.success("Project created successfully!", {
-              id: toastId,
-            });
-            form.reset();
-            setIsOpen(false);
-          } else {
-            throw new Error("Failed to create project");
-          }
-        })
-        .catch((error) => {
-          console.error("Form submission error", error);
-          toast.error("Failed to submit the form. Please try again.", {
+
+    if (edit) {
+      try {
+        const res = await fetch(`/api/projects/${data?._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
+        });
+        if (res.ok) {
+          toast.success("Project updated successfully!", {
             id: toastId,
           });
+          form.reset();
+          setIsOpen(false);
+        } else {
+          throw new Error("Failed to update project");
+        }
+      } catch (error) {
+        console.error("Form submission error", error);
+        toast.error("Failed to submit the form. Please try again.", {
+          id: toastId,
         });
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.", {
-        id: toastId,
-      });
+      }
+    } else {
+      try {
+        fetch(`/api/projects`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
+        })
+          .then((res) => {
+            if (res.ok) {
+              toast.success("Project created successfully!", {
+                id: toastId,
+              });
+              form.reset();
+              setIsOpen(false);
+            } else {
+              throw new Error("Failed to create project");
+            }
+          })
+          .catch((error) => {
+            console.error("Form submission error", error);
+            toast.error("Failed to submit the form. Please try again.", {
+              id: toastId,
+            });
+          });
+      } catch (error) {
+        console.error("Form submission error", error);
+        toast.error("Failed to submit the form. Please try again.", {
+          id: toastId,
+        });
+      }
     }
   }
 

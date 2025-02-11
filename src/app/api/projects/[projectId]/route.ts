@@ -7,10 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 // GET a single project by ID
 export async function GET(req: NextRequest, context: any) {
+  console.log("hit");
   try {
     await dbConnect();
 
     const { projectId } = await context.params;
+
+    console.log(projectId);
 
     if (!projectId) {
       return NextResponse.json({
