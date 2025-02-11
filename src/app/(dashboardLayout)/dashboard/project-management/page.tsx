@@ -1,7 +1,9 @@
 "use client";
 
+import ProjectCard from "@/components/cards/ProjectCard";
 import ProjectForm from "@/components/forms/ProjectForm";
 import { Modal } from "@/components/shared/Modal";
+import { NoData } from "@/components/shared/NoData";
 import ShimmerButton from "@/components/shared/ShimmerButton";
 import { TMongoose, TProject } from "@/types/types";
 import { useEffect, useState } from "react";
@@ -28,7 +30,17 @@ const ProjectManageMentPage = () => {
           trigger={<ShimmerButton>Add Project</ShimmerButton>}
         />
       </div>
-      <div>{data?.length > 0}</div>
+      <div>
+        {data?.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 items-center justify-center gap-4">
+            {data?.map((project) => (
+              <ProjectCard edit data={project} key={project?._id} />
+            ))}
+          </div>
+        ) : (
+          <NoData />
+        )}
+      </div>
     </div>
   );
 };

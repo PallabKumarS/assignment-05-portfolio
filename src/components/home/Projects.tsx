@@ -37,9 +37,9 @@ const Projects = () => {
       serverRepo: "https://github.com/PallabKumarS/tour-quest-server",
     },
     {
-      name: "Hype Electronic",
+      title: "Hype Electronic",
       images: [HE1, HE2, HE3],
-      info: "Explore our advanced MERN stack platform for electronic component repair. We blend technology and expertise to revive your devices. From intricate circuit boards to complex components, our platform offers a range of services designed to meet your electronic repair needs.",
+      description: "Explore our advanced MERN stack platform for electronic component repair. We blend technology and expertise to revive your devices. From intricate circuit boards to complex components, our platform offers a range of services designed to meet your electronic repair needs.",
       technology: [
         "Html",
         "Css",
